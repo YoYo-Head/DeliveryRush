@@ -15,8 +15,11 @@ window.entity_counter.enabled = False
 window.collider_counter.enabled = False
 
 land.land()
-player.Player((5, 1, 5))
+p = player.Player((5, 1, 5))
 
+def update():
+    
+    p.loop()
 
 
 

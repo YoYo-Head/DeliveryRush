@@ -3,7 +3,7 @@ import threading
 
 class Player(Entity):
 
-    velocity: Vec3
+    velocity: tuple[int, int, int]
 
     def __init__(self, pos):
         super().__init__(model = 'cube', color = color.rgb(1, 100, 1), texture = 'brick', position = pos, scale_y = 2)
@@ -15,21 +15,26 @@ class Player(Entity):
         camera.position = (camera.position.x, camera.position.y + 1, camera.position.z)
 
 
-        self.thread = threading.Thread(target=self.input_to_velocity)
+        #self.thread = threading.Thread(target=self.input_to_velocity)
 
-        self.toggle_input(True)
+        #self.toggle_input(True)
 
 
-    def toggle_input(self, enable: bool):
+    """def toggle_input(self, enable: bool):
         if enable:
             self.thread.start()
         else:
-            self.thread = threading.Thread(target=self.input_to_velocity)
+            self.thread = threading.Thread(target=self.input_to_velocity)"""
 
     def apply_velocity(self):
-        self.position * self.velocity
+
+        if self.velocity != (0, 0, 0):
+
+            self.position = ((self.position[0] + self.velocity[0]) * time.dt, 0, (self.position[2] + self.velocity[2]) * time.dt)
+            camera.position = ((camera.position[0] + self.velocity[0]) * time.dt, 0, (camera.position[2] + self.velocity[2]) * time.dt) 
 
     def loop(self):
+        self.input_to_velocity()
         self.apply_velocity()
 
 
@@ -38,20 +43,20 @@ class Player(Entity):
         xValue = 0
         zValue = 0
 
-        while True:
-            if held_keys['w']:
-                xValue += 6
+        
+        if held_keys['w']:
+            xValue += 6
 
-            if held_keys['a']:
-                zValue += 6
+        if held_keys['a']:
+            zValue += 6
 
-            if held_keys['s']:
-                xValue -= 6
+        if held_keys['s']:
+            xValue -= 6
 
-            if held_keys['d']:
-                zValue -= 6
+        if held_keys['d']:
+            zValue -= 6
 
-            self.velocity = Vec3(xValue, 0, zValue)
+        self.velocity = (xValue, 0, zValue)
 
         
 
