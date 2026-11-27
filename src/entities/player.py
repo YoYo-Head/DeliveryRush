@@ -8,11 +8,11 @@ class Player(Entity):
     def __init__(self, pos):
         super().__init__(model = 'cube', color = color.rgb(1, 100, 1), texture = 'brick', position = pos, scale_y = 2)
 
-        camera.position = pos
+        #camera.position = pos
 
         self.position = camera.position + camera.forward / 2
 
-        camera.position = (camera.position.x, camera.position.y + 1, camera.position.z)
+        #camera.position = (camera.position.x, camera.position.y + 1, camera.position.z)
 
 
         #self.thread = threading.Thread(target=self.input_to_velocity)
@@ -30,8 +30,10 @@ class Player(Entity):
 
         if self.velocity != (0, 0, 0):
 
-            self.position = ((self.position[0] + self.velocity[0]) * time.dt, 0, (self.position[2] + self.velocity[2]) * time.dt)
-            camera.position = ((camera.position[0] + self.velocity[0]) * time.dt, 0, (camera.position[2] + self.velocity[2]) * time.dt) 
+            self.position = (self.position[0] + self.velocity[0] * time.dt, 0, self.position[2] + self.velocity[2] * time.dt)
+
+            print(self.position)
+            camera.position = (camera.position[0] + self.velocity[0] * time.dt, 0, camera.position[2] + self.velocity[2] * time.dt) 
 
     def loop(self):
         self.input_to_velocity()
@@ -45,16 +47,16 @@ class Player(Entity):
 
         
         if held_keys['w']:
-            xValue += 6
-
-        if held_keys['a']:
             zValue += 6
 
-        if held_keys['s']:
+        if held_keys['a']:
             xValue -= 6
 
-        if held_keys['d']:
+        if held_keys['s']:
             zValue -= 6
+
+        if held_keys['d']:
+            xValue += 6
 
         self.velocity = (xValue, 0, zValue)
 
