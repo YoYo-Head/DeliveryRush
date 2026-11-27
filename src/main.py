@@ -1,10 +1,11 @@
 from ursina import *
-from entities.npc_one import npc_one
+from entities import player
 from world import land
 
-
-
 app = Ursina()
+
+
+
 
 # debug menu
 window.exit_button.enabled = False
@@ -14,8 +15,12 @@ window.entity_counter.enabled = False
 window.collider_counter.enabled = False
 
 land.land()
+player.Player((5, 1, 5))
 
-EditorCamera()
+
+
+
+#EditorCamera()
 
 
 app.run()

@@ -1,5 +1,5 @@
 from ursina import *
-from world.materials import sandbrick
+from world.materials import sandbrick, mailbox
 
 class land:
     def __init__(self):
@@ -7,4 +7,6 @@ class land:
         for x in range(20):
             for z in range(20):
                 sandbrick.block((x, 0, z))
+
+        mailbox.block((10, 2, 10))
             
