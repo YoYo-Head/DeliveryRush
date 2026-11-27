@@ -17,7 +17,7 @@ window.collider_counter.enabled = False
 land.land()
 p = player.Player((5, 1, 5))
 
-#EditorCamera()
+EditorCamera()
 
 def update():
     

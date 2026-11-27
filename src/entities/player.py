@@ -15,9 +15,7 @@ class Player(Entity):
         #camera.position = (camera.position.x, camera.position.y + 1, camera.position.z)
 
 
-        #self.thread = threading.Thread(target=self.input_to_velocity)
-
-        #self.toggle_input(True)
+        
 
 
     """def toggle_input(self, enable: bool):
@@ -30,14 +28,15 @@ class Player(Entity):
 
         if self.velocity != (0, 0, 0):
 
-            self.position = (self.position[0] + self.velocity[0] * time.dt, 0, self.position[2] + self.velocity[2] * time.dt)
+            self.position = (self.position[0] + self.velocity[0] * time.dt, 1, self.position[2] + self.velocity[2] * time.dt)
 
             print(self.position)
-            camera.position = (camera.position[0] + self.velocity[0] * time.dt, 0, camera.position[2] + self.velocity[2] * time.dt) 
+            #camera.position = (camera.position[0] + self.velocity[0] * time.dt, 2, camera.position[2] + self.velocity[2] * time.dt) 
 
     def loop(self):
         self.input_to_velocity()
         self.apply_velocity()
+        self.rotate_to_mouse()
 
 
     def input_to_velocity(self):
@@ -59,6 +58,20 @@ class Player(Entity):
             xValue += 6
 
         self.velocity = (xValue, 0, zValue)
+
+    def rotate_to_mouse(self):
+        # mouse uses x and y of vector 3 for velocity
+
+        mVelocity = mouse.velocity
+
+
+
+        self.rotation = (self.rotation.x, self.rotation.y + mVelocity.x * 10, self.rotation.z )
+
+        print(self.rotation)
+        #camera.rotation = (mVelocity.x / 100, camera.rotation.y, camera.rotation.z)
+        
+        
 
         
 
